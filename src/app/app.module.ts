@@ -8,27 +8,36 @@ import { InMemoryDataService }  from './in-memory-data.service';
 
 //import { AppRoutingModule }     from './app-routing.module';
 
+//////////Component du tuto, a ignorer////////////////////////
 import { AppComponent }         from './app.component';
 import { DashboardComponent }   from './dashboard/dashboard.component';
 import { HeroDetailComponent }  from './hero-detail/hero-detail.component';
 import { HeroesComponent }      from './heroes/heroes.component';
 import { HeroSearchComponent }  from './hero-search/hero-search.component';
 import { MessagesComponent }    from './messages/messages.component';
+///////////////////////////////////////////////////////////////
 
+//Mes Components
 import { AppareilComponent } from './appareil/appareil.component';
-import { AppareilService } from './services/appareil.service';
 import { AuthComponent } from './auth/auth.component';
 import { AppareilViewComponent } from './appareil-view/appareil-view.component';
-
-import { Routes } from '@angular/router';
-import { RouterModule } from '@angular/router';
-import { AuthService } from './services/auth.service';
 import { SingleAppareilComponent } from './single-appareil/single-appareil.component';
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
 
+//Mes Services
+import { AppareilService } from './services/appareil.service';
+import { AuthService } from './services/auth.service';
+import { AuthGuardService } from './services/auth-guard.service';
+
+
+//Mes Routes
+import { Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
+
+
 const appRoutes: Routes = [
-  {path:'appareils', component:AppareilViewComponent},
-  {path:'appareils/:id', component:SingleAppareilComponent},
+  {path:'appareils',canActivate: [AuthGuardService], component:AppareilViewComponent},
+  {path:'appareils/:id',canActivate: [AuthGuardService], component:SingleAppareilComponent},
   {path:'auth', component: AuthComponent},
   {path:'not-found',component: FourOhFourComponent},
   {path:'**',redirectTo: 'not-found'},
@@ -53,7 +62,8 @@ const appRoutes: Routes = [
   ],
   providers:[
     AppareilService,
-    AuthService
+    AuthService,
+    AuthGuardService
   ],
   declarations: [
     AppComponent,
