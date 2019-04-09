@@ -7,5 +7,5 @@
         [id]="i"
         [idAppareil]="appareil.id"></app-appareil>
       </ul>
-      <button class='btn btn-success' [disabled]="!isAuth" (click)="onAllumer()">Tout Allumer</button>
-      <button class='btn btn-danger' [disabled]="!isAuth" (click)="onEteindre()">Tout Eteindre</button>
+      <button class='btn btn-success' (click)="onAllumer()">Tout Allumer</button>
+      <button class='btn btn-danger' (click)="onEteindre()">Tout Eteindre</button>
