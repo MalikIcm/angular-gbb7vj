@@ -10,31 +10,7 @@ export class AppareilService {
   constructor(private httpClient: HttpClient){}
 
   private appareils = [
-    {
-      id: 1,
-      name: 'Machine a laver',
-      status: 'éteint'
-    },
-    {
-      id: 2,
-      name: 'Machine a café',
-      status: 'allumé'
-    },
-    {
-      id: 3,
-      name: 'Lave linge',
-      status: 'éteint'
-    },
-    {
-      id: 4,
-      name: 'Sèche-linge',
-      status: 'éteint'
-    },
-    {
-      id: 5,
-      name: 'Four',
-      status: 'allumé'
-    }
+    
   ];
 
   emitAppareilSubject() {
