@@ -26,30 +26,30 @@ export class AppareilViewComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(){
+    this.appareilService.getAppareilsFromServer();
     this.appareilSubscription = this.appareilService.appareilsSubject.subscribe(
       (appareils: any[]) => {
         this.appareils = appareils;
       }
     );
+    
     this.appareilService.emitAppareilSubject();
   }
-
   ngOnDestroy(){
+    this.appareilService.saveAppareilsToServer();
     this.appareilSubscription.unsubscribe();
   }
-
   onAllumer(){
     this.appareilService.SwitchOnAll();
+    this.appareilService.saveAppareilsToServer();
   }
-
   onEteindre(){
-    
     if(confirm('Etes-vous sûr de vouloir tout éteindre ?')){
       this.appareilService.SwitchOffAll();
+      this.appareilService.saveAppareilsToServer();
     }
     else{ return null; }
   }
-
   onSave(){
     this.appareilService.saveAppareilsToServer();
   }
