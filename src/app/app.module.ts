@@ -1,6 +1,7 @@
 import { NgModule }       from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule }    from '@angular/common/http';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -24,23 +25,29 @@ import { AppareilViewComponent } from './appareil-view/appareil-view.component';
 import { SingleAppareilComponent } from './single-appareil/single-appareil.component';
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
 import { EditAppareilComponent } from './edit-appareil/edit-appareil.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { NewUserComponent } from './new-user/new-user.component';
 
 //Mes Services
 import { AppareilService } from './services/appareil.service';
 import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/auth-guard.service';
-
+import { UserService } from './services/user.service';
 
 //Mes Routes
 import { Routes } from '@angular/router';
 import { RouterModule } from '@angular/router';
 
 
+
+
+
 const appRoutes: Routes = [
   {path:'appareils',canActivate: [AuthGuardService], component:AppareilViewComponent},
   {path:'appareils/:id',canActivate: [AuthGuardService], component:SingleAppareilComponent},
-  {path:'edit',canActivate: [AuthGuardService],component:EditAppareilComponent},
+  {path:'edit',canActivate: [AuthGuardService], component:EditAppareilComponent},
   {path:'auth', component: AuthComponent},
+  {path:'users', canActivate: [AuthGuardService], component: UserListComponent},
   {path:'not-found',component: FourOhFourComponent},
   {path:'**',redirectTo: 'not-found'},
   {path:'', component: AppareilViewComponent}
@@ -54,18 +61,18 @@ const appRoutes: Routes = [
     //AppRoutingModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
+    ReactiveFormsModule,
 
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests.
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
-    )
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })
   ],
   providers:[
     AppareilService,
     AuthService,
-    AuthGuardService
+    AuthGuardService,
+    UserService,
   ],
   declarations: [
     AppComponent,
@@ -79,7 +86,9 @@ const appRoutes: Routes = [
     AppareilViewComponent,
     SingleAppareilComponent,
     FourOhFourComponent,
-    EditAppareilComponent
+    EditAppareilComponent,
+    UserListComponent,
+    NewUserComponent
   ],
   bootstrap: [ AppComponent ]
 })
