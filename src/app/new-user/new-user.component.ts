@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { User } from '../models/User.model';
+import { Validators } from '@angular/forms';
 
 
 @Component({
@@ -23,10 +24,10 @@ export class NewUserComponent implements OnInit {
   }
   initForm(){
     this.userForm = this.formBuilder.group({
-      firstName: '',
-      lastName: '',
-      email: '',
-      drinkPreference: ''
+      firstName: ['',Validators.required],
+      lastName: ['',Validators.required],
+      email: ['',[Validators.required, Validators.email]],
+      drinkPreference: ['',Validators.required]
     });
   }
   onSubmitForm(){
