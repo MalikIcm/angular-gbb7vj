@@ -18,8 +18,6 @@ export class AppareilComponent implements OnInit {
 
   ngOnInit(){
   }
-
-
   getStatus(){
     return this.appareilStatus;
   }
@@ -34,9 +32,9 @@ export class AppareilComponent implements OnInit {
       return 'red';
       }
   }
-  
   onSwitch(){
     this.appareilService.SwitchOne(this.id);
+    this.appareilService.saveAppareilsToServer();
   }
   
 }
